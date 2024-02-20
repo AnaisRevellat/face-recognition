@@ -1,0 +1,11 @@
+.main_nav {
+  display: flex;
+  justify-content: right;
+  background:#fcb79e;
+}
+
+.main_nav p {
+    font-size:2rem;
+    padding:3px;
+    cursor:pointer;
+}
