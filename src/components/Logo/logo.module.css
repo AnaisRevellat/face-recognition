@@ -1,0 +1,26 @@
+.tilt {
+  margin-left: 2rem;  
+  width: 200px;
+  height: 200px;
+}
+
+.tilt,
+.logo_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo_box {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  background: #e0e0e0;
+  box-shadow: 26px 26px 53px #bebebe, -26px -26px 53px #ffffff;
+  overflow:hidden;
+}
+
+.logo_box img{
+    width:100%;
+    height:100%;
+}
