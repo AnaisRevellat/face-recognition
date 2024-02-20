@@ -1,11 +1,15 @@
 .main_nav {
   display: flex;
   justify-content: right;
-  background:#fcb79e;
+  background:rgb(233, 215, 208)e;
 }
 
 .main_nav p {
-    font-size:2rem;
-    padding:3px;
-    cursor:pointer;
+  font-size: 2rem;
+  padding: 30px;
+  cursor: pointer;
+}
+
+.main_nav p:hover {
+  color: lightseagreen;
 }
