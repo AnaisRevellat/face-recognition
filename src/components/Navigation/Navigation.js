@@ -4,7 +4,7 @@ import styles from './navigation.module.css'
 const Navigation = () => {
   return (
     <nav className={styles.main_nav}>
-      <Link to="/">Sign Out</Link>
+      <Link to="/" className={styles.main_nav__link}>Sign Out</Link>
     </nav>
   );
 };
