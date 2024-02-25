@@ -12,7 +12,7 @@ const Logo = () => {
   return (
     <Tilt className={styles.tilt} options={{max: 50}} >
       <div className={styles.logo_box}>
-        <img src={fRecognition} alt="facial recognition"/>
+        <img src={fRecognition} alt="face with recognition nodes"/>
       </div>
     </Tilt>
   );
