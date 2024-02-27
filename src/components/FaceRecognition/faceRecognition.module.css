@@ -10,14 +10,14 @@
   display: flex;
   margin: 50px 0 50px 0;
   width: 500px;
-  height: fit-content;
+  height: auto;
   border-radius: 50px;
   overflow: hidden;
 }
 
 .recognition_border {
   position: absolute;
-  box-shadow: 0 0 0 3px #149df2 inset;
+  box-shadow: 0 0 0 3px #0bff40 inset;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

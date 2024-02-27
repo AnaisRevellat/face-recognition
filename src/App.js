@@ -76,17 +76,18 @@ class App extends Component {
   };
 
   calculateFaceLocation = (data) => {
-    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById('inputimage');
+    const clarifaiFace =
+      data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById("inputimage");
     const width = Number(image.width);
     const height = Number(image.height);
     return {
       leftCol: clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row * height,
-      rightCol: width - (clarifaiFace.right_col * width),
-      bottomRow: height - (clarifaiFace.bottom_row * height)
-    }
-  }
+      rightCol: width - clarifaiFace.right_col * width,
+      bottomRow: height - clarifaiFace.bottom_row * height,
+    };
+  };
 
   displayFaceBox = (box) => {
     console.log(box);
@@ -99,19 +100,20 @@ class App extends Component {
 
   onBtnSubmit = () => {
     this.setState({ imageUrl: this.state.input });
- 
-    // app.models.predict("face-detection", this.state.input)
-    fetch("https://api.clarifai.com/v2/models/" + 'face-detection' + "/outputs",
-      returnClarifaiRequestOptions(this.state.input)    )
-      .then((response) => response.json())
-      .then(result => console.log(result))
-        .catch(error => console.log('error', error));
 
-      // .then((response) =>
-      //   this.displayFaceBox(this.calculateFaceLocation(response)).catch((err) =>
-      //     console.log(err)
-      //   )
-      //);
+    // app.models.predict("face-detection", this.state.input)
+    fetch(
+      "https://api.clarifai.com/v2/models/" + "face-detection" + "/outputs",
+      returnClarifaiRequestOptions(this.state.input)
+    )
+      .then((response) => response.json())
+      .then((data) => this.displayFaceBox(this.calculateFaceLocation(data)))
+
+    // .then((response) =>
+    //   this.displayFaceBox(this.calculateFaceLocation(response)).catch((err) =>
+    //     console.log(err)
+    //   )
+    //);
   };
 
   render() {
