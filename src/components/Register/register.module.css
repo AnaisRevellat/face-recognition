@@ -28,6 +28,10 @@
     width: 90%;
     /* background-color: yellow; */
   }
+
+  .sign_form__subdiv input:hover {
+    background-color: #e2e2e2;
+  }
   
   
   

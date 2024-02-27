@@ -29,4 +29,17 @@
   /* background-color: yellow; */
 }
 
+.sign_form__subdiv input:hover {
+  background-color: #e2e2e2;
+}
+
+.sign_form__subdiv p {
+  cursor:pointer;
+}
+
+.sign_form__subdiv p:hover {
+color:orangered;
+}
+
+
 
