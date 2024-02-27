@@ -80,37 +80,44 @@ class App extends Component {
   // };
 
   calculateFaceLocation = (data) => {
-    const clarifaiFace =
-      data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById("inputimage");
+    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById('inputimage');
     const width = Number(image.width);
     const height = Number(image.height);
     return {
       leftCol: clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row * height,
       rightCol: width - clarifaiFace.right_col * width,
-      bottomRow: height - clarifaiFace.bottom_row * height,
-    };
-  };
+      bottomRow: height - clarifaiFace.bottom_row * height
+    }
+  }
 
   displayFaceBox = (box) => {
-    this.setStae({ box: box });
+    this.setState({ box: box });
   };
 
   onInputChange = (event) => {
     this.setState({ input: event.target.value });
   };
 
-  onBtnSubmit = () => {
+  onBtnSubmit = async () => {
     this.setState({ imageUrl: this.state.input });
 
     // app.models.predict("face-detection", this.state.input)
-    fetch(
-      "https://api.clarifai.com/v2/models/" + "face-detection" + "/outputs",
-      returnClarifaiRequestOptions(this.state.input)
-    )
-      .then((response) => response.json())
-      .then((data) => this.displayFaceBox(this.calculateFaceLocation(data)));
+    // fetch(
+    //   "https://api.clarifai.com/v2/models/" + "face-detection" + "/outputs",
+    //   returnClarifaiRequestOptions(this.state.input)
+    // )
+    //   .then(async (response) => response.json())
+    //   .then((data) => this.displayFaceBox(this.calculateFaceLocation(data)));
+
+    const response = await fetch(
+        "https://api.clarifai.com/v2/models/" + "face-detection" + "/outputs",
+        returnClarifaiRequestOptions(this.state.input)
+      )
+    const data = await response.json()
+    console.log('data', data)
+    this.displayFaceBox(this.calculateFaceLocation(data))
 
     // .then((response) =>
     //   this.displayFaceBox(this.calculateFaceLocation(response)).catch((err) =>
@@ -129,7 +136,7 @@ class App extends Component {
   };
 
   render() {
-    const { isSignedIn, box, route, imageUrl } = this.state;
+    const{ isSignedIn, box, route, imageUrl } = this.state;
     return (
       <Router>
         <div className="App">
