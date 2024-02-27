@@ -4,8 +4,7 @@
     align-items: center;
     width: 100%;
     height:90vh;
-    margin-top:1rem;
-  
+    margin-top:1rem;  
     background:rgba(0, 0, 255, 0.082);
   }
   
@@ -31,6 +30,10 @@
 
   .sign_form__subdiv input:hover {
     background-color: #e2e2e2;
+  }
+
+  .register_btn{
+    cursor:pointer;
   }
   
   

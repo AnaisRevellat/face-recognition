@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { Component } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Particles from "react-tsparticles";
 // import Clarifai from "clarifai";
 
@@ -12,10 +12,6 @@ import Rank from "./components/Rank/Rank";
 import { BrowserRouter as Router } from "react-router-dom";
 import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
-
-// const app = new Clarifai.App({
-//   apiKey: "03841d455e9343ca966dc806e339f6fc",
-// });
 
 const returnClarifaiRequestOptions = (imageUrl) => {
   const PAT = "139699273de549a78a5e1c922bb0952e";
@@ -52,197 +48,175 @@ const returnClarifaiRequestOptions = (imageUrl) => {
   return requestOptions;
 };
 
-class App extends Component {
-  // const [userInput, setUserInput] = useState("");
+const App = () => {
+  const [input, setInput] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [box, setBox] = useState({});
+  const [route, setRoute] = useState("signin");
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
-  constructor() {
-    super();
 
-    this.state = {
-      input: "",
-      imageUrl: "",
-      box: {},
-      route: "signin",
-      isSignedIn: false,
-    };
+  const loadParticles = useCallback(async (engine) => {
+    console.log(engine);
+    if (engine) {
+      // Ensure the engine is not undefined before calling addParticleUpdater
+      await loadFull(engine);
+    }
+  }, []);
 
-    // this.loadParticles = this.loadParticles.bind(this);
-    // this.particlesLoaded = this.particlesLoaded.bind(this);
-  }
+  const particlesLoaded = useCallback(async (container) => {
+    await console.log(container);
+  }, []);
 
-  // loadParticles = async (engine) => {
-  //   console.log(engine);
-  //   await loadFull(engine);
-  // };
+  useEffect(() => {
+    loadParticles();
+  }, [loadParticles]);
 
-  // particlesLoaded = async (container) => {
-  //   await console.log(container);
-  // };
-
-  calculateFaceLocation = (data) => {
-    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById('inputimage');
+  const calculateFaceLocation = (data) => {
+    const clarifaiFace =
+      data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById("inputimage");
     const width = Number(image.width);
     const height = Number(image.height);
     return {
       leftCol: clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row * height,
       rightCol: width - clarifaiFace.right_col * width,
-      bottomRow: height - clarifaiFace.bottom_row * height
-    }
-  }
-
-  displayFaceBox = (box) => {
-    this.setState({ box: box });
+      bottomRow: height - clarifaiFace.bottom_row * height,
+    };
   };
 
-  onInputChange = (event) => {
-    this.setState({ input: event.target.value });
+  const displayFaceBox = (box) => {
+    setBox(box);
   };
 
-  onBtnSubmit = async () => {
-    this.setState({ imageUrl: this.state.input });
+  const onInputChange = (event) => {
+    setInput(event.target.value);
+  };
 
-    // app.models.predict("face-detection", this.state.input)
-    // fetch(
-    //   "https://api.clarifai.com/v2/models/" + "face-detection" + "/outputs",
-    //   returnClarifaiRequestOptions(this.state.input)
-    // )
-    //   .then(async (response) => response.json())
-    //   .then((data) => this.displayFaceBox(this.calculateFaceLocation(data)));
+  const onBtnSubmit = async () => {
+    setImageUrl(input);
 
     const response = await fetch(
-        "https://api.clarifai.com/v2/models/" + "face-detection" + "/outputs",
-        returnClarifaiRequestOptions(this.state.input)
-      )
-    const data = await response.json()
-    console.log('data', data)
-    this.displayFaceBox(this.calculateFaceLocation(data))
-
-    // .then((response) =>
-    //   this.displayFaceBox(this.calculateFaceLocation(response)).catch((err) =>
-    //     console.log(err)
-    //   )
-    //);
-  };
-
-  onRouteChange = (route) => {
-    if (route === "signout") {
-      this.setState({ isSignedIn: false });
-    } else if (route === "home") {
-      this.setState({ isSignedIn: true });
-    }
-    this.setState({ route: route });
-  };
-
-  render() {
-    const{ isSignedIn, box, route, imageUrl } = this.state;
-    return (
-      <Router>
-        <div className="App">
-          <Particles
-            className="particles"
-            id="tsparticles"
-            init={this.loadParticles}
-            loaded={this.particlesLoaded}
-            options={{
-              background: {
-                color: {
-                  value: "#181414",
-                },
-              },
-              fpsLimit: 120,
-              interactivity: {
-                events: {
-                  onClick: {
-                    enable: true,
-                    mode: "push",
-                  },
-                  onHover: {
-                    enable: true,
-                    mode: "repulse",
-                  },
-                  resize: true,
-                },
-                modes: {
-                  push: {
-                    quantity: 4,
-                  },
-                  repulse: {
-                    distance: 200,
-                    duration: 0.4,
-                  },
-                },
-              },
-              particles: {
-                color: {
-                  value: "#80b3ff",
-                },
-                links: {
-                  color: "#ffffff",
-                  distance: 150,
-                  enable: true,
-                  opacity: 0.5,
-                  width: 1,
-                },
-                move: {
-                  direction: "none",
-                  enable: true,
-                  outModes: {
-                    default: "bounce",
-                  },
-                  random: false,
-                  speed: 1,
-                  straight: false,
-                },
-                number: {
-                  density: {
-                    enable: true,
-                    area: 800,
-                  },
-                  value: 80,
-                },
-                opacity: {
-                  value: 0.5,
-                },
-                shape: {
-                  type: "circle",
-                },
-                size: {
-                  value: { min: 1, max: 5 },
-                },
-              },
-              detectRetina: true,
-            }}
-          />
-
-          <Navigation
-            isSignedIn={isSignedIn}
-            onRouteChange={this.onRouteChange}
-          />
-
-          {route === "home" ? (
-            <>
-              <Logo />
-              <ImageLinkForm
-                onInputChange={this.onInputChange}
-                onBtnSubmit={this.onBtnSubmit}
-              />
-              <Rank />
-              <FaceRecognition
-                box={box}
-                imageUrl={imageUrl}
-              />
-            </>
-          ) : route === "signin" ? (
-            <Signin onRouteChange={this.onRouteChange} />
-          ) : (
-            <Register onRouteChange={this.onRouteChange} />
-          )}
-        </div>
-      </Router>
+      "https://api.clarifai.com/v2/models/" + "face-detection" + "/outputs",
+      returnClarifaiRequestOptions(input)
     );
-  }
-}
+    const data = await response.json();
+    console.log("data", data);
+    displayFaceBox(calculateFaceLocation(data));
+  };
+
+  const onRouteChange = (route) => {
+    if (route === "signout") {
+      setIsSignedIn(false);
+    } else if (route === "home") {
+      setIsSignedIn(true);
+    }
+    setRoute(route);
+  };
+
+  return (
+    <Router>
+      <div className="App">
+        <Particles
+          className="particles"
+          id="tsparticles"
+          init={loadParticles}
+          loaded={particlesLoaded}
+          options={{
+            background: {
+              color: {
+                value: "#181414",
+              },
+            },
+            fpsLimit: 120,
+            interactivity: {
+              events: {
+                onClick: {
+                  enable: true,
+                  mode: "push",
+                },
+                onHover: {
+                  enable: true,
+                  mode: "repulse",
+                },
+                resize: true,
+              },
+              modes: {
+                push: {
+                  quantity: 4,
+                },
+                repulse: {
+                  distance: 200,
+                  duration: 0.4,
+                },
+              },
+            },
+            particles: {
+              color: {
+                value: "#80b3ff",
+              },
+              links: {
+                color: "#ffffff",
+                distance: 150,
+                enable: true,
+                opacity: 0.5,
+                width: 1,
+              },
+              move: {
+                direction: "none",
+                enable: true,
+                outModes: {
+                  default: "bounce",
+                },
+                random: false,
+                speed: 1,
+                straight: false,
+              },
+              number: {
+                density: {
+                  enable: true,
+                  area: 800,
+                },
+                value: 80,
+              },
+              opacity: {
+                value: 0.5,
+              },
+              shape: {
+                type: "circle",
+              },
+              size: {
+                value: { min: 1, max: 5 },
+              },
+            },
+            detectRetina: true,
+          }}
+        />
+
+        <Navigation
+          isSignedIn={isSignedIn}
+          onRouteChange={onRouteChange}
+        />
+
+        {route === "home" ? (
+          <>
+            <Logo />
+            <ImageLinkForm
+              onInputChange={onInputChange}
+              onBtnSubmit={onBtnSubmit}
+            />
+            <Rank />
+            <FaceRecognition box={box} imageUrl={imageUrl} />
+          </>
+        ) : route === "signin" ? (
+          <Signin onRouteChange={onRouteChange} />
+        ) : (
+          <Register onRouteChange={onRouteChange} />
+        )}
+      </div>
+    </Router>
+  );
+};
 
 export default App;

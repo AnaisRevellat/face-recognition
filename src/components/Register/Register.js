@@ -10,8 +10,12 @@ const Register = ({ onRouteChange }) => {
 
   return (
     <div className={styles.form_container}>
-      <div className={styles.sign_form} onSubmit={handleSubmit}>
+      <div className={styles.sign_form}>
         <h2>Register</h2>
+        <div className={styles.sign_form__subdiv}>
+          <label htmlFor="name">Name:</label>
+          <input type="text" id="name" name="name" />
+        </div>
         <div className={styles.sign_form__subdiv}>
           <label htmlFor="email">Email:</label>
           <input type="email" id="email" name="email" />
@@ -20,7 +24,7 @@ const Register = ({ onRouteChange }) => {
           <label htmlFor="password">Password:</label>
           <input type="password" id="password" name="password" />
         </div>
-        <button type="submit">Register</button>
+        <button className={styles.register_btn} type="submit" onClick={handleSubmit}>Register</button>
       </div>
     </div>
   );
