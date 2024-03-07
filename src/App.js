@@ -17,7 +17,6 @@ const returnClarifaiRequestOptions = (imageUrl) => {
   const PAT = "139699273de549a78a5e1c922bb0952e";
   const USER_ID = "hexia_valten77";
   const APP_ID = "8lilqn";
-  const MODEL_ID = "face-detection";
   const IMAGE_URL = imageUrl;
 
   const raw = JSON.stringify({
@@ -54,7 +53,23 @@ const App = () => {
   const [box, setBox] = useState({});
   const [route, setRoute] = useState("signin");
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [user, setUser] = useState({
+    id: "",
+    name: "",
+    email: "",
+    entries: "",
+    joined: "",
+  });
 
+  const loadUser = (data) => {
+    setUser({
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      entries: data.entries,
+      joined: data.joined,
+    });
+  };
 
   const loadParticles = useCallback(async (engine) => {
     console.log(engine);
@@ -71,6 +86,23 @@ const App = () => {
   useEffect(() => {
     loadParticles();
   }, [loadParticles]);
+
+  //cors is installed in the backend to make this fetch
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch('http://localhost:3500/');
+  //       const data = await response.json();
+  //       console.log(data);
+  //     } catch (error) {
+  //       console.error('Error when trying to catch data:', error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  //
 
   const calculateFaceLocation = (data) => {
     const clarifaiFace =
@@ -98,7 +130,7 @@ const App = () => {
     setImageUrl(input);
 
     const response = await fetch(
-      "https://api.clarifai.com/v2/models/" + "face-detection" + "/outputs",
+      `https://api.clarifai.com/v2/models/face-detection/outputs`,
       returnClarifaiRequestOptions(input)
     );
     const data = await response.json();
@@ -194,10 +226,7 @@ const App = () => {
           }}
         />
 
-        <Navigation
-          isSignedIn={isSignedIn}
-          onRouteChange={onRouteChange}
-        />
+        <Navigation isSignedIn={isSignedIn} onRouteChange={onRouteChange} />
 
         {route === "home" ? (
           <>
