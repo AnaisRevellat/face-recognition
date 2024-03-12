@@ -1,13 +1,11 @@
 import React from "react";
 import styles from "./rank.module.css";
 
-const Rank = () => {
+const Rank = ({ name, entries }) => {
   return (
     <div className={styles.rank_container}>
-      <div className={styles.rank_box}>{'X your current rank is: '}</div>
-      <div className={styles.space}>
-        {'#5'}
-      </div>     
+      <div className={styles.rank_box}>{`${name} your current rank is: `}</div>
+      <div className={styles.space}>{entries}</div>
     </div>
   );
 };

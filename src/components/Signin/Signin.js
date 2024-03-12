@@ -29,9 +29,13 @@ class Signin extends React.Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data === "success") {
+        //if (data === "success") {
+          console.log("Successfully signed in");
           this.props.onRouteChange("home");
-        }
+        //}
+      })
+      .catch((error) => {
+        console.error("Error during sign in:", error);
       });
   };
 

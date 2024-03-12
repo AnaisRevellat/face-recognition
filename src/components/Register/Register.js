@@ -23,6 +23,25 @@ class Register extends React.Component {
     this.setState({ password: event.target.value });
   };
 
+  // onSubmitSignIn = () => {
+  //   fetch("http://localhost:3500/register", {
+  //     method: "post",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       email: this.state.email,
+  //       password: this.state.password,
+  //       name: this.state.name,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((user) => {
+  //       if (user) {
+  //         this.props.loadUser(user)
+  //         this.props.onRouteChange("home");
+  //       }
+  //     });
+  // };
+
   onSubmitSignIn = () => {
     fetch("http://localhost:3500/register", {
       method: "post",
@@ -35,10 +54,17 @@ class Register extends React.Component {
     })
       .then((response) => response.json())
       .then((user) => {
-        if (user) {
-          this.props.loadUser(user)
+        if (user.id) {
+          // if the user has an ID > register is okay
+          this.props.loadUser(user);
           this.props.onRouteChange("home");
+        } else {
+          // we display the server response if it fails
+          console.log("Error during register :", user.message);
         }
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la requête d'enregistrement :", error);
       });
   };
 
@@ -82,6 +108,7 @@ class Register extends React.Component {
             className={styles.register_btn}
             type="submit"
             onClick={this.onSubmitSignIn}
+            value="register"
           >
             Register
           </button>
