@@ -2,16 +2,26 @@
   display: flex;
   justify-content: right;
   align-items: center;
-  height:100px;
-  background:#e9d7d0;
+  height:200px;
+  background:#ff3eb59c;
 }
 
 .main_nav__link {
-  font-size: 2rem;
+  font-size: 3rem;
   padding: 1.5rem;
+  text-transform: uppercase;
+  font-weight:600;
   cursor: pointer;
+  text-decoration:none;
+  color:rgb(212, 252, 252);
+}
+
+
+.main_nav__link:first-child:hover {
+  color: #11ddd3;
 }
 
 .main_nav__link:hover {
-  color: lightseagreen;
+  color: #ddbe11;
 }
+
