@@ -6,6 +6,7 @@
   justify-content: center;
   cursor: pointer;
   z-index:200;
+  background:rgba(47, 0, 255, 0.199);
 }
 
 .facerecognition_container{
@@ -14,8 +15,9 @@
   border-radius: 50px;
   text-align: center;
   margin: auto;
-  background:orange;
+  background:transparent;
   width:100%;
+  height:390px;
 }
 
 .facerecognition_container_absolute{
