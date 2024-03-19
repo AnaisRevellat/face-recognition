@@ -2,7 +2,6 @@ import "./App.css";
 import React, { Component } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-import Logo from "./components/Logo/Logo";
 import Navigation from "./components/Navigation/Navigation";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
@@ -10,11 +9,6 @@ import Rank from "./components/Rank/Rank";
 import { BrowserRouter as Router } from "react-router-dom";
 import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
-import Clarifai from "clarifai";
-
-const app = new Clarifai.App({
-  apiKey: "03841d455e9343ca966dc806e339f6fc",
-});
 
 const initialState = {
   input: "",
@@ -88,9 +82,14 @@ class App extends Component {
 
   onBtnSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-
-    app.models
-      .predict("face-detection", this.state.input)
+    fetch("http://localhost:3500/imageurl", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: this.state.input,
+      }),
+    })
+      .then((response) => response.json())
       .then((response) => {
         console.log("hi", response);
         if (response) {
@@ -105,7 +104,7 @@ class App extends Component {
             .then((count) => {
               this.setState(Object.assign(this.state.user, { entries: count }));
             })
-            .catch(console.log)
+            .catch(console.log);
         }
 
         this.displayFaceBox(this.calculateFaceLocation(response));
@@ -244,7 +243,6 @@ class App extends Component {
 
           {route === "home" ? (
             <>
-              <Logo />
               <ImageLinkForm
                 onInputChange={this.onInputChange}
                 onBtnSubmit={this.onBtnSubmit}
