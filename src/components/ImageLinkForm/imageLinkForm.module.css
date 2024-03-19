@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 350px;
+  height:600px;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: white;  
 }
 
 .welcome_text {

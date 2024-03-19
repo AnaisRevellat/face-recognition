@@ -1,3 +1,13 @@
+.App {
+  border-left: 1px solid #3633ecc9;
+  border-right: 1px solid #3633ecc9;
+  border-top: none;
+  border-bottom: none; 
+  width: 1800px;
+  background: rgba(0, 0, 255, 0.24);
+}
+
+
 .particles{
   position: fixed;
   width: 100%;
@@ -71,6 +81,5 @@
   100%  
   {
     transform: translate(-50%, -75%) rotate(360deg);
-  }
-  
+  }  
 }
