@@ -1,21 +1,21 @@
 .App {
+  font-family: "Courier New", Courier, monospace;
   border-left: 1px solid #3633ecc9;
   border-right: 1px solid #3633ecc9;
   border-top: none;
-  border-bottom: none; 
+  border-bottom: none;
   width: 1800px;
-  height:auto;
+  height: auto;
   background: rgba(0, 0, 255, 0.24);
 }
 
-
-.particles{
+.particles {
   position: fixed;
   width: 100%;
-  top:0;
-  right:0;
-  left:0;
-  bottom:0;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   z-index: -1;
 }
 
@@ -40,47 +40,46 @@
 }
 
 .a_btn .liquid {
-  position:absolute;
-  left:0;
+  position: absolute;
+  left: 0;
   top: -80px;
-  width:500px;
-  height:200px;
+  width: 500px;
+  height: 200px;
   background: #0059fff5;
-  box-shadow: inset 0 0 50px rgba(0,0,0,.5);
-  transition: 0.5s;  
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+  transition: 0.5s;
 }
 
-.a_btn:hover .liquid{
+.a_btn:hover .liquid {
   top: -120px;
 }
 
 .a_btn .liquid:before,
 .a_btn .liquid:after {
-  content: '';
-  position:absolute;
-  width:200%;
-  height:200%;
-  top:0;
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: 0;
   left: 50%;
-  transform: translate(-50%, -75%); 
+  transform: translate(-50%, -75%);
 }
 
 .a_btn .liquid:before {
- border-radius: 45%;
- background: rgba(20,20,20,1);
- animation: animate 5s linear infinite;
+  border-radius: 45%;
+  background: rgba(20, 20, 20, 1);
+  animation: animate 5s linear infinite;
 }
 .a_btn .liquid:after {
   border-radius: 40%;
-  background: rgba(20,20,20,0.5);
+  background: rgba(20, 20, 20, 0.5);
   animation: animate 10s linear infinite;
-} 
+}
 @keyframes animate {
-  0%{
+  0% {
     transform: translate(-50%, -75%) rotate(0deg);
   }
-  100%  
-  {
+  100% {
     transform: translate(-50%, -75%) rotate(360deg);
-  }  
+  }
 }
