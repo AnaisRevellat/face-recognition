@@ -1,39 +1,36 @@
 .form_container {
-    display: flex;
-    justify-content: center;  
-    align-items: center;
-    width: 100%;
-    height:calc(100vh - 220px);
-    margin-top:1rem;
-  }
-  
-  .sign_form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    align-items: center;
-    border-radius:20px;
-    width: 550px;
-    height: 450px; 
-    box-shadow: rgba(224, 189, 189, 0.733) 0px 5px 15px;
-    background-color: white;
-  }
-  
-  .sign_form__subdiv {
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    /* background-color: yellow; */
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 220px);
+  margin-top: 1rem;
+}
 
-  .sign_form__subdiv input:hover {
-    background-color: #e2e2e2;
-  }
+.sign_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
+  border-radius: 20px;
+  width: 550px;
+  height: 550px;
+  box-shadow: rgba(224, 189, 189, 0.733) 0px 5px 15px;
+  background-color: white;
+}
 
-  .register_btn{
-    cursor:pointer;
-  }
-  
-  
-  
+.sign_form__subdiv {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  /* background-color: yellow; */
+}
+
+.sign_form__subdiv input:hover {
+  background-color: #e2e2e2;
+}
+
+.register_btn {
+  cursor: pointer;
+}

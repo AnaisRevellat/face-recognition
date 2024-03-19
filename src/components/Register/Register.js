@@ -56,7 +56,7 @@ class Register extends React.Component {
   render() {
     return (
       <div className={styles.form_container}>
-        <div className={styles.sign_form}>
+        <div className={`${styles.sign_form} sign_form`}>
           <h2>Register</h2>
           <div className={styles.sign_form__subdiv}>
             <label htmlFor="name">Name:</label>
@@ -85,14 +85,19 @@ class Register extends React.Component {
               onChange={this.onPasswordChange}
             />
           </div>
+
           <button
-            className={styles.register_btn}
+            href="/"
             type="submit"
+            className="a_btn liquid btn_register"
             onClick={this.onSubmitSignIn}
-            value="register"
           >
-            Register
+            <span>
+              <strong>Register</strong>
+            </span>
+            <div className="liquid"></div>
           </button>
+    
         </div>
       </div>
     );

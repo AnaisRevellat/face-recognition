@@ -45,10 +45,28 @@
   top: -80px;
   width: 500px;
   height: 200px;
-  background: #0059fff5;
+  /* background: #0059fff5; */
   box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
   transition: 0.5s;
 }
+
+.btn_signin{
+  background: #0059fff5;
+}
+
+.btn_signin:hover{
+  background: #00ff22f5;
+}
+
+
+.btn_register{
+  background: #ffbb00f5;
+}
+
+.btn_register:hover{
+  background:  #00ff22f5;
+}
+
 
 .a_btn:hover .liquid {
   top: -120px;
@@ -83,3 +101,18 @@
     transform: translate(-50%, -75%) rotate(360deg);
   }
 }
+
+/*--------------------------------------------*/
+
+.sign_form input {
+  padding: 0 20px 0 20px;
+  height: 2rem;
+  border-radius: 50px; 
+}
+
+.sign_form button{
+  cursor:pointer;
+}
+
+
+

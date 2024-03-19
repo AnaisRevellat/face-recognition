@@ -36,12 +36,11 @@ class Signin extends React.Component {
       });
   };
 
-
   render() {
     const { onRouteChange } = this.props;
     return (
       <div className={styles.form_container}>
-        <div className={styles.sign_form}>
+        <div className={`${styles.sign_form} sign_form`}>
           <h2>Sign In</h2>
           <div className={styles.sign_form__subdiv}>
             <label htmlFor="email">Email:</label>
@@ -61,9 +60,19 @@ class Signin extends React.Component {
               onChange={this.onPasswordChange}
             />
           </div>
-          <button onClick={this.onSubmitSignIn} type="submit">
-            Sign in
+
+          <button
+            href="/"
+            type="submit"
+            className="a_btn liquid btn_signin"
+            onClick={this.onSubmitSignIn}
+          >
+            <span>
+              <strong>Sign In</strong>
+            </span>
+            <div className="liquid"></div>
           </button>
+
           <div className={styles.sign_form__subdiv}>
             <p onClick={() => onRouteChange("register")} href="#0">
               Register

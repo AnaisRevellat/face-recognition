@@ -14,7 +14,6 @@ const FaceRecognition = ({ imageUrl, box }) => {
           imageHeight && imageHeight > 300 ? styles.large_image : ""
         }`}
       >
-
         <div className={styles.facerecognition_container_absolute}>
         <img
             id="inputimage"
