@@ -35,8 +35,7 @@ class Register extends React.Component {
     })
       .then((response) => response.json())
       .then((user) => {
-        if (user.id) {
-          // if the user has an ID > register is okay
+        if(user) {       
           this.props.loadUser(user);
           this.props.onRouteChange("home");
         } else {
@@ -97,7 +96,6 @@ class Register extends React.Component {
             </span>
             <div className="liquid"></div>
           </button>
-    
         </div>
       </div>
     );
