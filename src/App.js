@@ -82,7 +82,7 @@ class App extends Component {
 
   onBtnSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    fetch("http://localhost:3500/imageurl", {
+    fetch("https://face-recognition-api-nlv1.onrender.com/imageurl", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -93,7 +93,7 @@ class App extends Component {
       .then((response) => {
         console.log("hi", response);
         if (response) {
-          fetch("http://localhost:3500/image", {
+          fetch("https://face-recognition-api-nlv1.onrender.com/image", {
             method: "put",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
