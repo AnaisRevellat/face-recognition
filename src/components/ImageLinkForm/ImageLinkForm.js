@@ -17,7 +17,7 @@ const ImageLinkForm = ({ onInputChange, onBtnSubmit }) => {
       </div>
       <div className={styles.input_detect}>
         <input type="text" onChange={onInputChange} />
-        <a href="/" className="a_btn" onClick={handleBtnSubmit}>
+        <a href="/" className="a_btn btn_detect" onClick={handleBtnSubmit}>
           <span>
             <strong>Detect</strong>
           </span>

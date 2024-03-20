@@ -50,7 +50,7 @@
   transition: 0.5s;
 }
 
-.btn_signin{
+.btn_signin, .btn_detect{
   background: #0059fff5;
 }
 
