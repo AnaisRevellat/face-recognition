@@ -9,6 +9,7 @@ import Rank from "./components/Rank/Rank";
 import { BrowserRouter as Router } from "react-router-dom";
 import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
+import Footer from "./components/Footer/Footer";
 
 const initialState = {
   input: "",
@@ -252,6 +253,7 @@ class App extends Component {
                 entries={this.state.user.entries}
               />
               <FaceRecognition box={box} imageUrl={imageUrl} />
+              <Footer />
             </>
           ) : route === "signin" ? (
             <Signin

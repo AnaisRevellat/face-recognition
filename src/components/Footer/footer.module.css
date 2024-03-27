@@ -1,0 +1,8 @@
+.footer_container{
+    display: flex;
+    justify-content: center;
+    height:200px;
+    background:#000000;
+    color:white;
+    z-index:999;    
+}

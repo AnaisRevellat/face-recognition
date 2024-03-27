@@ -1,12 +1,15 @@
 .App {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   font-family: "Courier New", Courier, monospace;
-  border-left: 1px solid #3633ecc9;
-  border-right: 1px solid #3633ecc9;
+  border-left: 1px solid #ff00bfc9;
+  border-right: 1px solid #ff0000c9;
   border-top: none;
   border-bottom: none;
   width: 1800px;
   height: auto;
-  background: rgba(0, 0, 255, 0.24);
+  background: rgba(0, 0, 54, 0.24);
 }
 
 .particles {

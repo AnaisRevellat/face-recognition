@@ -14,7 +14,7 @@
   text-align: center;
   align-items: center;
   border-radius: 20px;
-  width: 550px;
+  width: 25%;
   height: 550px;
   box-shadow: rgba(224, 189, 189, 0.733) 0px 5px 15px;
   background-color: white;
@@ -34,3 +34,7 @@
 .register_btn {
   cursor: pointer;
 }
+
+
+
+

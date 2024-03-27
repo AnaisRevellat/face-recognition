@@ -16,7 +16,7 @@ const ImageLinkForm = ({ onInputChange, onBtnSubmit }) => {
         </p>
       </div>
       <div className={styles.input_detect}>
-        <input type="text" onChange={onInputChange} />
+        <input type="text" onChange={onInputChange} placeholder=" Paste your http/https url here ... "/>
         <a href="/" className="a_btn btn_detect" onClick={handleBtnSubmit}>
           <span>
             <strong>Detect</strong>
