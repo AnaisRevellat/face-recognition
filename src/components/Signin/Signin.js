@@ -19,7 +19,9 @@ class Signin extends React.Component {
   };
 
   onSubmitSignIn = () => {
-    this.setState({ loading: true });
+    // Afficher la modal de chargement
+    this.props.showLoadingModal();
+
     fetch("https://face-recognition-api-nlv1.onrender.com/signin", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -32,9 +34,15 @@ class Signin extends React.Component {
       .then((user) => {
         if (user.id) {
           this.props.loadUser(user);
+
           this.props.onRouteChange("home");
         }
-        this.setState({ loading: false });
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      })
+      .finally(() => {
+        this.props.hideLoadingModal();
       });
   };
 

@@ -24,7 +24,7 @@ class Register extends React.Component {
   };
 
   onSubmitSignIn = () => {
-    this.setState({ loading: true });
+   
     fetch("https://face-recognition-api-nlv1.onrender.com/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -45,10 +45,7 @@ class Register extends React.Component {
       })
       .catch((error) => {
         console.error("Erreur lors de la requête d'enregistrement :", error);
-      })
-      .finally(() => {
-        this.setState({ loading: false }); 
-    });
+      }) 
   };
 
   handleSubmit = (event) => {

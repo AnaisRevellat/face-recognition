@@ -1,7 +1,5 @@
 import "./App.css";
 import React, { Component } from "react";
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
 import Navigation from "./components/Navigation/Navigation";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
@@ -10,7 +8,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
 import Footer from "./components/Footer/Footer";
-import Spinner from "./components/Spinner/Spinner";
+import LoadingModal from "./components/LoadingModal";
 
 const initialState = {
   input: "",
@@ -25,7 +23,7 @@ const initialState = {
     entries: 0,
     joined: "",
   },
-  loading: false,  //useful for the spinner
+  loading: false, // modal state
 };
 
 class App extends Component {
@@ -46,21 +44,14 @@ class App extends Component {
     });
   };
 
-  // loadParticles = async (engine) => {
-  //   console.log(engine);
-  //   if (engine) {
-  //     await loadFull(engine);
-  //   }
-  // };
+  showLoadingModal = () => {
+    this.setState({ loading: true });
+  };
 
-  // particlesLoaded = async (container) => {
-  //   await console.log(container);
-  // };
-
-  // componentDidMount() {
-  //   this.loadParticles();
-  // }
-
+  hideLoadingModal = () => {
+    this.setState({ loading: false });
+  };
+  
   calculateFaceLocation = (data) => {
     const clarifaiFace =
       data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -84,7 +75,7 @@ class App extends Component {
   };
 
   onBtnSubmit = () => {
-    this.setState({ imageUrl: this.state.input, loading: true });
+    this.setState({ imageUrl: this.state.input, loading: true }); // Activer le chargement avant la requête
     fetch("https://face-recognition-api-nlv1.onrender.com/imageurl", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -94,28 +85,15 @@ class App extends Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        
-        if (response) {
-          fetch("https://face-recognition-api-nlv1.onrender.com/image", {
-            method: "put",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              id: this.state.user.id,
-            }),
-          })
-            .then((response) => response.json())
-            .then((count) => {
-              this.setState(Object.assign(this.state.user, { entries: count }));
-            })
-            .catch(console.log);
-        }
-
-        this.displayFaceBox(this.calculateFaceLocation(response));
+        // Traitement de la réponse
+        // Désactiver le chargement après 10 secondes
+        setTimeout(() => {
+          this.setState({ loading: false });
+          // Rediriger vers la page d'accueil
+          this.setState({ route: "home" });
+        }, 2000);
       })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        this.setState({ loading: false });
-      })
+      .catch((err) => console.log(err));
   };
 
   onRouteChange = (route) => {
@@ -161,94 +139,17 @@ class App extends Component {
   };
 
   render() {
-    
     const { isSignedIn, route, box, imageUrl, loading } = this.state;
 
     return (
       <Router>
         <div className="App">
-        {loading && (route === "signin" || route === "register") && <Spinner />} {/* to display or not */}
-          {/* <Particles
-            className="particles"
-            id="tsparticles"
-            init={this.loadParticles}
-            loaded={this.particlesLoaded}
-            options={{
-              background: {
-                color: {
-                  value: "#181414",
-                },
-              },
-              fpsLimit: 120,
-              interactivity: {
-                events: {
-                  onClick: {
-                    enable: true,
-                    mode: "push",
-                  },
-                  onHover: {
-                    enable: true,
-                    mode: "repulse",
-                  },
-                  resize: true,
-                },
-                modes: {
-                  push: {
-                    quantity: 4,
-                  },
-                  repulse: {
-                    distance: 200,
-                    duration: 0.4,
-                  },
-                },
-              },
-              particles: {
-                color: {
-                  value: "#80b3ff",
-                },
-                links: {
-                  color: "#ffffff",
-                  distance: 150,
-                  enable: true,
-                  opacity: 0.5,
-                  width: 1,
-                },
-                move: {
-                  direction: "none",
-                  enable: true,
-                  outModes: {
-                    default: "bounce",
-                  },
-                  random: false,
-                  speed: 1,
-                  straight: false,
-                },
-                number: {
-                  density: {
-                    enable: true,
-                    area: 800,
-                  },
-                  value: 60,
-                },
-                opacity: {
-                  value: 0.5,
-                },
-                shape: {
-                  type: "circle",
-                },
-                size: {
-                  value: { min: 1, max: 5 },
-                },
-              },
-              detectRetina: true,
-            }}
-          /> */}
-
+          {loading && <LoadingModal />}
           <Navigation
             isSignedIn={isSignedIn}
             onRouteChange={this.onRouteChange}
           />
-
+          {/* Afficher la modale de chargement si loading est true */}
           {route === "home" ? (
             <>
               <ImageLinkForm
@@ -266,6 +167,8 @@ class App extends Component {
             <Signin
               loadUser={this.loadUser}
               onRouteChange={this.onRouteChange}
+              showLoadingModal={this.showLoadingModal} // Cette ligne ne devrait pas être commentée
+              hideLoadingModal={this.hideLoadingModal} 
             />
           ) : (
             <Register
@@ -273,7 +176,6 @@ class App extends Component {
               onRouteChange={this.onRouteChange}
             />
           )}
-           {loading && (route === "signin" || route === "register") && <Spinner />}
         </div>
       </Router>
     );
