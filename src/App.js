@@ -161,6 +161,7 @@ class App extends Component {
   };
 
   render() {
+    
     const { isSignedIn, route, box, imageUrl, loading } = this.state;
 
     return (
