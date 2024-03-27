@@ -10,6 +10,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
 import Footer from "./components/Footer/Footer";
+import Spinner from "./components/Spinner/Spinner";
 
 const initialState = {
   input: "",
@@ -24,6 +25,7 @@ const initialState = {
     entries: 0,
     joined: "",
   },
+  loading: false,  //useful for the spinner
 };
 
 class App extends Component {
@@ -44,20 +46,20 @@ class App extends Component {
     });
   };
 
-  loadParticles = async (engine) => {
-    console.log(engine);
-    if (engine) {
-      await loadFull(engine);
-    }
-  };
+  // loadParticles = async (engine) => {
+  //   console.log(engine);
+  //   if (engine) {
+  //     await loadFull(engine);
+  //   }
+  // };
 
-  particlesLoaded = async (container) => {
-    await console.log(container);
-  };
+  // particlesLoaded = async (container) => {
+  //   await console.log(container);
+  // };
 
-  componentDidMount() {
-    this.loadParticles();
-  }
+  // componentDidMount() {
+  //   this.loadParticles();
+  // }
 
   calculateFaceLocation = (data) => {
     const clarifaiFace =
@@ -82,7 +84,7 @@ class App extends Component {
   };
 
   onBtnSubmit = () => {
-    this.setState({ imageUrl: this.state.input });
+    this.setState({ imageUrl: this.state.input, loading: true });
     fetch("https://face-recognition-api-nlv1.onrender.com/imageurl", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -92,7 +94,7 @@ class App extends Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log("hi", response);
+        
         if (response) {
           fetch("https://face-recognition-api-nlv1.onrender.com/image", {
             method: "put",
@@ -110,7 +112,10 @@ class App extends Component {
 
         this.displayFaceBox(this.calculateFaceLocation(response));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        this.setState({ loading: false });
+      })
   };
 
   onRouteChange = (route) => {
@@ -156,11 +161,12 @@ class App extends Component {
   };
 
   render() {
-    const { isSignedIn, route, box, imageUrl } = this.state;
+    const { isSignedIn, route, box, imageUrl, loading } = this.state;
 
     return (
       <Router>
         <div className="App">
+        {loading && (route === "signin" || route === "register") && <Spinner />} {/* to display the Spinner => to sign in or to register */}
           <Particles
             className="particles"
             id="tsparticles"
@@ -221,7 +227,7 @@ class App extends Component {
                     enable: true,
                     area: 800,
                   },
-                  value: 80,
+                  value: 60,
                 },
                 opacity: {
                   value: 0.5,
@@ -266,6 +272,7 @@ class App extends Component {
               onRouteChange={this.onRouteChange}
             />
           )}
+           {loading && (route === "signin" || route === "register") && <Spinner />}
         </div>
       </Router>
     );
