@@ -46,7 +46,20 @@ class App extends Component {
     });
   };
 
+  // loadParticles = async (engine) => {
+  //   console.log(engine);
+  //   if (engine) {
+  //     await loadFull(engine);
+  //   }
+  // };
 
+  // particlesLoaded = async (container) => {
+  //   await console.log(container);
+  // };
+
+  // componentDidMount() {
+  //   this.loadParticles();
+  // }
 
   calculateFaceLocation = (data) => {
     const clarifaiFace =
@@ -153,8 +166,8 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-        {loading && (route === "signin" || route === "register") && <Spinner />} {/* to display the Spinner => to sign in or to register */}
-          <Particles
+        {loading && (route === "signin" || route === "register") && <Spinner />} {/* to display or not */}
+          {/* <Particles
             className="particles"
             id="tsparticles"
             init={this.loadParticles}
@@ -228,7 +241,7 @@ class App extends Component {
               },
               detectRetina: true,
             }}
-          />
+          /> */}
 
           <Navigation
             isSignedIn={isSignedIn}
