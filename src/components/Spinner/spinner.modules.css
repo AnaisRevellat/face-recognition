@@ -4,10 +4,10 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: #4a1bf3;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 9999;
   }
   
   .spinner_container {
@@ -17,6 +17,7 @@
     width: 50px;
     height: 50px;
     animation: spin 2s linear infinite; 
+    z-index: 9999;
   }
   
   @keyframes spin {

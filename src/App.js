@@ -46,20 +46,7 @@ class App extends Component {
     });
   };
 
-  // loadParticles = async (engine) => {
-  //   console.log(engine);
-  //   if (engine) {
-  //     await loadFull(engine);
-  //   }
-  // };
 
-  // particlesLoaded = async (container) => {
-  //   await console.log(container);
-  // };
-
-  // componentDidMount() {
-  //   this.loadParticles();
-  // }
 
   calculateFaceLocation = (data) => {
     const clarifaiFace =
